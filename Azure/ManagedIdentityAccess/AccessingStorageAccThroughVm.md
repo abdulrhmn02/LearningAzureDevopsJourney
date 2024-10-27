@@ -91,5 +91,45 @@ This document outlines the steps to create an Azure Virtual Machine (VM) and con
 To check if the file you uploaded is accessible, you can run the access blob command (the second command above) from your VM. If you get a successful response (HTTP 200), it means your file is accessible.
 
 
+# Viewing Files in Azure Storage from a Virtual Machine (VM)
+
+There are several ways you can view the file you uploaded to your Azure Storage Account from your Virtual Machine (VM). Here are some common methods:
+
+## 1. Using cURL
+You can use the `curl` command to directly access and view the file in your terminal. For example:
+```bash
+curl "https://<storage_account_name>.blob.core.windows.net/<container_name>/<blob_name>" -H "x-ms-version: 2017-11-09" -H "Authorization: Bearer $access_token"
+```
+Replace `<storage_account_name>`, `<container_name>`, and `<blob_name>` with your specific details.
+
+## 2. Using Azure CLI
+If you have the Azure CLI installed on your VM, you can use the following command to download the file:
+```bash
+az storage blob download --account-name <storage_account_name> --container-name <container_name> --name <blob_name> --file <local_file_path>
+```
+This command downloads the blob to a specified local path, which you can then open.
+
+## 3. Using Azure Storage Explorer
+You can also use **Azure Storage Explorer**, a desktop application that allows you to interact with Azure Storage Accounts. You can install it on your VM, connect it to your Azure account, and easily browse, upload, or download files.
+
+## 4. Using PowerShell
+If you have PowerShell on your VM, you can use the following command:
+```powershell
+$context = New-AzStorageContext -StorageAccountName <storage_account_name> -UseConnectedAccount
+Get-AzStorageBlobContent -Container <container_name> -Blob <blob_name> -Destination <local_path> -Context $context
+```
+This command will download the blob to your specified local path.
+
+## 5. Using a Web Browser
+If your blob has public access, you can also access it via a web browser by navigating to:
+```
+https://<storage_account_name>.blob.core.windows.net/<container_name>/<blob_name>
+```
+Make sure the blob's permissions allow for public access.
+
+## 6. Using SDKs
+If you're working with a specific programming language, Azure SDKs (like Python, .NET, or Java) allow you to write scripts or applications that can access and manipulate blobs programmatically.
+
+
 ## Conclusion
 You have successfully created an Azure VM and connected it to a Storage Account using managed identities. This setup allows secure access to Azure resources without needing to manage credentials manually.
