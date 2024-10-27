@@ -133,3 +133,5 @@ If you're working with a specific programming language, Azure SDKs (like Python,
 
 ## Conclusion
 You have successfully created an Azure VM and connected it to a Storage Account using managed identities. This setup allows secure access to Azure resources without needing to manage credentials manually.
+
+checking commit
